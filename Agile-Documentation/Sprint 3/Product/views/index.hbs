@@ -1,0 +1,163 @@
+<div class="container mt-4">
+    {{#unless login}}
+    <div class="alert alert-danger">You must be logged in to buy any Diary!</div>
+    {{/unless}}
+    <div class="row">
+        <div class="col-md-4 col-8 offset-2 offset-md-0">
+            <div class="card" style="width: 18rem;">
+                <img src="/images/img1.jpg" class="card-img-top img-thumbnail img-fluid" alt="" style="height: 400px;">
+                <div class="card-body">
+                    <h5 class="card-title">Fancy Customizable Diary</h5>
+                    <p class="card-text">Get one of these amazing looking diaries for your notes and also as a gift item
+                        from our shops. <br> Buy Now before the stock ends</p>
+
+                    <form action="buy-diary" method="post">
+                        <input type="hidden" name="price" value="1000">
+                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_oS5IFcOPJkRNj83JuMiqixbI" data-amount="5000" data-name="Stripe.com"
+                            data-description="Example charge" data-currency="AUD"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto" data-zip-code="true">
+                            </script>
+                        <script>
+                            document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                        </script>
+                        {{# if login}}
+                        <button type="submit" class="btn btn-primary">Buy Default Diary ($50)</button>
+                        {{else}}
+                        <button type="submit" class="btn btn-primary" disabled data-toggle="tooltip"
+                            data-placement="bottom" title="Please Login to buy">Buy Default Diary ($50)</button>
+                        {{/if}}
+                    </form>
+
+                    <p class="lead">OR</p>
+                    <p class="lead">Customize as per your choice:</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 col-md-6 offset-2">
+
+            {{# if hasPrice}}
+            <form action="buy-diary" method="post">
+                <h1 class="mt-5">Your Customizations :</h1>
+                <hr>
+                <br>
+                <p class="lead">Paper Color : {{paperColor}}</p>
+
+                <p class="lead">Theme Color : {{themeColor}}</p>
+
+                <p class="lead">Paper Type : {{paperType}}</p>
+
+                <p class="lead">Cover Text : {{coverText}}</p>
+
+                <p class="lead">Delivery Option selected : {{delivery}}</p>
+
+                <input type="hidden" name="price" value="{{price2}}">
+                <input type="hidden" name="paperColor" value="{{paperColor}}">
+                <input type="hidden" name="themeColor" value="{{themeColor}}">
+                <input type="hidden" name="paperType" value="{{paperType}}">
+                <input type="hidden" name="coverText" value="{{price}}">
+                <input type="hidden" name="delivery" value="{{delivery}}">
+                <p class="lead">Total Price : ${{price}}</p>
+
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_oS5IFcOPJkRNj83JuMiqixbI" data-amount={{price2}} data-name="Stripe.com"
+                    data-description="Example charge" data-currency="AUD"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto"
+                    data-zip-code="true">
+                    </script>
+                <script>
+                    document.getElementsByClassName('stripe-button-el')[1].style.display = 'none';
+                </script>
+                {{#if login}}
+                <button type="submit" class="btn btn-success">Confirm and Buy</button>
+                {{else}}
+                <button type="submit" class="btn btn-success" disabled data-toggle="tooltip" data-placement="bottom"
+                    title="Please Login to buy">Confirm and Buy</button>
+                {{/if}}
+            </form>
+            {{else}}
+            <h1 class="mt-5">Customize Your Diary Here :</h1>
+            <hr>
+            <br>
+            <p class="lead">Select Paper Color :</p>
+            <form action="/calculate-price" method="POST">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="paperColor" id="red" value="red"> Red ($20)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="paperColor" id="green" value="green"> Green
+                        ($10)
+                    </label>
+                </div>
+                <div class="form-check disabled">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="paperColor" id="blue" value="blue"> Blue
+                        ($30)
+                    </label>
+                </div>
+                <br>
+                <p class="lead">Select Theme :</p>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="themeColor" id="dark" value="dark"> Dark
+                        Theme ($50)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="themeColor" id="light" value="light"> Light
+                        Theme ($30)
+                    </label>
+                </div>
+                <br>
+                <p class="lead">Select Paper Type :</p>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="paperType" id="plain" value="plain"> Plain
+                        ($10)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="paperType" id="lined" value="lined"> Lined
+                        ($20)
+                    </label>
+                </div>
+                <div class="form-check disabled">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="paperType" id="dotted" value="dotted"> Dotted
+                        ($30)
+                    </label>
+                </div>
+                <br>
+                <p class="lead">Enter Your Preferred Cover Text : ($50)</p>
+                <input type="text" name="coverText" id="coverText" class="form-control"
+                    placeholder="Sample Text Goes in here....">
+                <br>
+                <p class="lead">Select Delivery Option :</p>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="delivery" id="standard" value="standard">
+                        Standard Delivery (No extra charge)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="delivery" id="express" value="express">
+                        Express Delivery ($20 extra)
+                    </label>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-success">Calculate Price</button>
+                {{/if}}
+                <hr>
+            </form>
+        </div>
+
+    </div>
+
+</div>
