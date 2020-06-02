@@ -1,0 +1,32 @@
+{
+  "name": "sepm-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "mocha --recursive --exit"
+  },
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "chai": "^4.2.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-handlebars": "^4.0.3",
+    "express-session": "^1.17.1",
+    "hbs": "~4.0.4",
+    "http-errors": "~1.6.3",
+    "mocha": "^7.2.0",
+    "mockgoose": "^8.0.4",
+    "mongoose": "^5.9.9",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.6"
+  }
+}
