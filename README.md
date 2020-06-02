@@ -5,6 +5,7 @@
 
 ### To launch just run:
 `npm i`
+Then:
 `npm start` OR `nodemon` OR `node app.js`
 
 ### Testing using Mocha and chai
