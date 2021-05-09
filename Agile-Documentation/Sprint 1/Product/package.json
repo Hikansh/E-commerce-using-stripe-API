@@ -27,6 +27,6 @@
     "supertest": "^4.0.2"
   },
   "devDependencies": {
-    "handlebars": "^4.7.6"
+    "handlebars": "^4.7.7"
   }
 }
